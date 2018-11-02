@@ -22,11 +22,20 @@ class Todo_main extends Base_Controller {
         $this->lists();
     }
     
+    function view()
+    {
+        $id = $this->uri->segment(3);
+        
+        $data['views'] = $this->todo_m->get_view($id);
+        
+        $this->load->view('todo_main/view_v', $data);
+    }
+    
     public function lists()
     {
         $data['list'] = $this->todo_m->get_list();
         
-        $this->load->view('todo/list_main_v', $data);
+        $this->load->view('todo_main/list_v', $data);
     }
     
 }

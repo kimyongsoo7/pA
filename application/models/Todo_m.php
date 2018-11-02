@@ -13,6 +13,17 @@ class Todo_m extends CI_Model
         parent::__construct();
     }
     
+    function get_view($id)
+    {
+        $sql = "SELECT * FROM items WHERE id='".$id."'";
+        
+        $query = $this->db->query($sql);
+        
+        $result = $query->row();
+        
+        return $result;
+    }
+    
     function get_list()
     {
         $sql = "SELECT * FROM items";
