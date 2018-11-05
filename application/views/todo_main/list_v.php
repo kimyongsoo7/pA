@@ -47,7 +47,7 @@ foreach ($list as $lt)
                             <th scope="row">
                                 <?php echo $lt->id;?>
                             </th>
-                            <td><a rel="external" href="/main/view/<?php echo $lt->id;?>"><?php echo $lt->content;?></a></td>
+                            <td><a rel="external" href="/todo_main/view/<?php echo $lt->id;?>"><?php echo $lt->content;?></a></td>
                             <td><time datetime="<?php echo mdate("%Y-%M-%j", human_to_unix($lt->created_on));?>"><?php echo $lt->created_on;?></time></td>
                             <td><time datetime="<?php echo mdate("%Y-%M-%j", human_to_unix($lt->due_date));?>"><?php echo $lt->due_date;?></time></td>
                         </tr>
@@ -57,7 +57,7 @@ foreach ($list as $lt)
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="4"><a href="/main/write/" class="btn btn-success">쓰기</a></th>
+                            <th colspan="4"><a href="/todo_main/write/" class="btn btn-success">쓰기</a></th>
                         </tr>
                     </tfoot>
                 </table>
