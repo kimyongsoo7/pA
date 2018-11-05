@@ -59,4 +59,14 @@ class Todo_main extends Base_Controller {
         
     }
     
+    function delete()
+    {
+        
+        $id = $this->uri->segment(3);
+    
+        $this->todo_m->delete_todo($id);
+        
+        redirect('/../todo_main/lists/');
+    }
+    
 }
