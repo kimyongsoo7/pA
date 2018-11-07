@@ -41,4 +41,33 @@ class Todo_board_m extends CI_Model
         return $result;
     }
     
+    function get_view($table, $id)
+    {
+        $sql0 = "UPDATE ".$table." SET hits=hits+1 WHERE board_id='".$id."'";
+        $this->db->query($sql0);
+        
+        $sql = "SELECT * FROM ".$table." WHERE board_id='".$id."'";
+        $query = $this->db->query($sql);
+        
+        $result = $query->row();
+        
+        return $result;
+    }
+    
+    function insert_board($arrays)
+    {
+        $insert_array = array(
+            'board_pid' => 0,
+            'user_id' => 'louis',
+            'user_name' => '루이스',
+            'subject' => $arrays['subject'],
+            'contents' => $arrays['contents'],
+            'reg_date' => date("Y-m-d H:i:s")
+        );
+        
+        $result = $this->db->insert($arrays['table'], $insert_array);
+        
+        return $result;
+    }
+    
 }

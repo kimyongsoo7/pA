@@ -77,7 +77,77 @@ class Todo_board extends Base_Controller {
         $this->load->view('todo_board/list_v', $data);
     }
     
+    function view()
+    {
+        $data['views'] = $this->todo_board_m->get_view($this->uri->segment(3), $this->uri->segment(5));
+        
+        $this->load->view('todo_board/view_v', $data);
+    }
     
+    function write()
+    {
+        echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
+        
+        if ( $_POST )
+        {
+            $this->load->helper('alert');
+            
+            $uri_array = $this->segment_explode($this->uri->uri_string());
+            
+            if( in_array('page', $uri_array) )
+            {
+                $pages = urldecode($this->url_explode($uri_array, 'page'));
+            }
+            else
+            {
+                $pages = 1;
+            }
+            
+            if ( !$this->input->post('subject', TRUE) AND !$this->input->post('contents', TRUE) )
+            {
+                alert('비정상적인 접근입니다.', '/todo_board/lists/'.$this->uri->segment(3).'/page/'.$pages);
+                exit;
+            }
+            
+            //var_dump($_POST);
+            $write_data = array(
+                'table' => $this->uri->segment(3),
+                'subject' => $this->input->post('subject', TRUE),
+                'contents' => $this->input->post('contents', TRUE)
+            );
+            
+            $result = $this->todo_board_m->insert_board($write_data);
+            
+            if ( $result )
+            {
+                alert('입력되었습니다.', '/todo_board/lists/'.$this->uri->segment(3).'/page/'.$pages);
+                exit;
+            }
+            else
+            {
+                alert('다시 입력해 주세요.', '/todo_board/lists/'.$this->uri->segment(3).'/page/'.$pages);
+                exit;
+            }
+            
+        }
+        else
+        {
+            $this->load->view('todo_board/write_v');
+        }
+    }
+    
+    function url_explode($url, $key)
+    {
+        $cnt = count($url);
+        for($i=0; $cnt>$i; $i++ )
+        {
+            if($url[$i] == $key)
+            {
+                $k = $i+1;
+                return $url[$k];
+            }
+        }
+    }
     
     function segment_explode($seg)
     {
