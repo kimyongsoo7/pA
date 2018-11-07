@@ -70,4 +70,20 @@ class Todo_board_m extends CI_Model
         return $result;
     }
     
+    function modify_board($arrays)
+    {
+        $modify_array = array(
+            'subject' => $arrays['subject'],
+            'contents' => $arrays['contents']
+        );
+        
+        $where = array(
+            'board_id' => $arrays['board_id']
+        );
+        
+        $result = $this->db->update($arrays['table'], $modify_array, $where);
+        
+        return $result;
+    }
+    
 }
