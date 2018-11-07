@@ -192,6 +192,24 @@ class Todo_board extends Base_Controller {
         }
     }
     
+    function delete()
+    {
+        echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
+        
+        $this->load->helper('alert');
+        
+        $return = $this->todo_board_m->delete_content($this->uri->segment(3), $this->uri->segment(5));
+        
+        if ( $return )
+        {
+            alert('삭제되었습니다.', '/todo_board/lists/'.$this->uri->segment(3).'/page/'.$this->uri->segment(7));
+        }
+        else
+        {
+            alert('삭제 실패하였습니다.', '/todo_board/view/'.$this->uri->segment(3).'/board_id/'.$this->uri->segment(5).'/page/'.$this->uri->segment(7));
+        }
+    }
+    
     function url_explode($url, $key)
     {
         $cnt = count($url);

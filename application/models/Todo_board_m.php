@@ -86,4 +86,15 @@ class Todo_board_m extends CI_Model
         return $result;
     }
     
+    function delete_content($table, $no)
+    {
+        $delete_array = array(
+            'board_id' => $no
+        );
+        
+        $result = $this->db->delete($table, $delete_array);
+        
+        return $result;
+    }
+    
 }
