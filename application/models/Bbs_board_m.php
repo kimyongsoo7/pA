@@ -40,6 +40,29 @@ class Bbs_board_m extends CI_Model
         return $result;
     }
     
+    function get_view($table, $id)
+    {
+        $sql0 = "UPDATE ".$table." SET hits=hits+1 WHERE board_id='".$id."'";
+        $this->db->query($sql0);
+        
+        $sql = "SELECT * FROM ".$table." WHERE board_id='".$id."'";
+        $query = $this->db->query($sql);
+        
+        $result = $query->row();
+        
+        return $result;
+    }
+    
+    function get_comment($table, $id)
+    {
+        $sql = "SELECT * FROM ".$table." WHERE board_pid='".$id."' ORDER BY board_id DESC";
+        $query = $this->db->query($sql);
+        
+        $result = $query->result();
+        
+        return $result;
+    }
+    
 }
 
 

@@ -75,6 +75,20 @@ class Bbs_board extends Base_Controller {
         $this->load->view('bbs_board/list_v', $data);
     }
     
+    function view()
+    {
+        $table = $this->uri->segment(3);
+        $board_id = $this->uri->segment(5);
+        
+        $data['views'] = $this->bbs_board_m->get_view($table, $board_id);
+        
+        $data['comment_list'] = $this->bbs_board_m->get_comment($table, $board_id);
+        
+        $this->load->view('bbs_board/view_v', $data);
+    }
+    
+    
+    
     
     
     
