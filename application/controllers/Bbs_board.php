@@ -222,6 +222,42 @@ class Bbs_board extends Base_Controller {
         }
     }
     
+    function delete()
+    {
+        $this->load->helper('alert');
+        echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />' ;
+        
+        if( @$_SESSION['logged_in'] == TRUE )
+        {
+            $table = $this->uri->segment(3);
+            $board_id = $this->uri->segment(5);
+            
+            $writer_id = $this->bbs_board_m->writer_check($table, $board_id);
+            
+            if( $writer_id->user_id != $_SESSION['username'] )
+            {
+                alert('본인이 작성한 글이 아닙니다.', '/bbs_board/view/'.$this->uri->segment(3).'/board_id/'.$this->uri->segment(5).'/page/'.$this->uri->segment(7));
+                exit;
+            }
+            
+            $return = $this->bbs_board_m->delete_content($this->uri->segment(3), $this->uri->segment(5));
+            
+            if ( $return )
+            {
+                alert('삭제되었습니다.', '/bbs_board/lists/'.$this->uri->segment(3).'/page/'.$this->uri->segment(7));
+            }
+            else
+            {
+                alert('삭제 실패하였습니다.', '/bbs_board/view/'.$this->uri->segment(3).'/board_id/'.$this->uri->segment(5).'/page/'.$this->uri->segment(7));
+            }
+        }
+        else
+        {
+            alert('로그인후 삭제하세요', '/bbs_auth/login/');
+            exit;
+        }
+    }
+    
     
     
     

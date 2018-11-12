@@ -95,6 +95,17 @@ class Bbs_board_m extends CI_Model
         return $result;
     }
     
+    function delete_content($table, $no)
+    {
+        $delete_array = array(
+            'board_id' => $no
+        );
+        
+        $result = $this->db->delete($table, $delete_array);
+        
+        return $result;
+    }
+    
     function writer_check($table, $board_id)
     {
         $sql = "SELECT user_id FROM ".$table." WHERE board_id = '".$board_id."'";
