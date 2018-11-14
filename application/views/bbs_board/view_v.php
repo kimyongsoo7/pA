@@ -9,7 +9,7 @@
                         "comment_contents":encodeURIComponent($("#input01").val()),
                         "csrf_test_name":getCookie('csrf_cookie_name'),
                         "table":"<?php echo $this->uri->segment(3);?>",
-                        "board_id":"<?php $this->uri->segment(5);?>"
+                        "board_id":"<?php echo $this->uri->segment(5);?>"
                     },
                     dataType: "html",
                     complete:function(xhr, textStatus){
@@ -37,7 +37,8 @@
                 });
             });
             
-            $(".comment_delete").click(function(){
+            //$(".comment_delete").click(function(){
+            $(document).on("click",".comment_delete", function() {
                 $.ajax({
                     url: "/ajax_board/ajax_comment_delete",
                     type: "POST",

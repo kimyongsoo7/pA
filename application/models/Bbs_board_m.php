@@ -115,6 +115,25 @@ class Bbs_board_m extends CI_Model
         return $query->row();
     }
     
+    function insert_comment($arrays)
+    {
+        $insert_array = array(
+            'board_pid' => $arrays['board_pid'],
+            'user_id' => $arrays['user_id'],
+            'user_name' => $arrays['user_id'],
+            'subject' => $arrays['subject'],
+            'contents' => $arrays['contents'],
+            'reg_date' => date("Y-m-d H:i:s")
+        );
+        
+        $this->db->insert($arrays['table'], $insert_array);
+        
+        $board_id = $this->db->insert_id();
+        
+        return $board_id;
+    }
+    
+    
 }
 
 
